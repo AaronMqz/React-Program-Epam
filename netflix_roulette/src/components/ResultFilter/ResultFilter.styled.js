@@ -2,7 +2,8 @@ import styled from "styled-components";
 import { ThemeColor } from "../../utils/constants";
 
 const Container = styled.div`
-  padding: 30px 45px 0 45px;
+  margin-top: 10px;
+  padding: 15px 45px 0 45px;
   background: ${ThemeColor.Secondary};
   color: white;
 `;
@@ -11,7 +12,12 @@ const Filter = styled.div`
   display: flex;
   justify-content: space-between;
   border-bottom: solid 3px ${ThemeColor.TagLine};
-  padding-bottom: 15px;
+  height: 37px;
+`;
+
+const FilterContent = styled.div`
+  display: flex;
+  height: 40px;
 `;
 
 const Count = styled.div`
@@ -21,9 +27,13 @@ const Count = styled.div`
 const LabelFilter = styled.label`
   margin-right: 15px;
   padding-bottom: 15px;
-  cursor: pointer;
   ${(props) =>
     props.active ? `border-bottom: solid 3px ${ThemeColor.Primary}` : ""}
+`;
+
+const SortConatiner = styled.div`
+  padding-bottom: 15px;
+  display: flex;
 `;
 
 const LabelSort = styled(LabelFilter)`
@@ -42,4 +52,6 @@ export const Result = {
   LabelFilter,
   LabelCount,
   LabelSort,
+  SortConatiner,
+  FilterContent,
 };

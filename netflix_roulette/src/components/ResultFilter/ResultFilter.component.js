@@ -1,17 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { Result } from "./ResultFilter.styled";
-import { ThemeColor } from "../../utils/constants";
 import { Utils } from "../../utils/utils";
+import { DropDownComponent as DropDown } from "../DropDown/DropDown.component";
 
-export const ResultComponent = ({ items }) => {
+export const ResultComponent = ({ items, optionList, handleSortBy }) => {
   return (
     <Result.Container>
       <Result.Filter>
         <ResultFilter items={items} />
-        <ResultSort></ResultSort>
+        <ResultSort
+          optionList={optionList}
+          handleSortBy={handleSortBy}
+        ></ResultSort>
       </Result.Filter>
       <Result.Count>
         <ResultCount items={items} />
@@ -22,22 +23,25 @@ export const ResultComponent = ({ items }) => {
 
 const ResultFilter = ({ items }) => {
   return (
-    <div>
+    <Result.FilterContent>
       <Result.LabelFilter active={true}>ALL</Result.LabelFilter>
       {Utils.getMoviesGenres(items).map((item, index) => {
         return <Result.LabelFilter key={index}>{item}</Result.LabelFilter>;
       })}
-    </div>
+    </Result.FilterContent>
   );
 };
 
-const ResultSort = () => {
+const ResultSort = ({ optionList, handleSortBy }) => {
   return (
-    <div>
+    <Result.SortConatiner>
       <Result.LabelSort>SORT BY</Result.LabelSort>
-      <span style={{ marginRight: 10 }}>RELEASE DATE</span>
-      <FontAwesomeIcon icon={faCaretDown} color={ThemeColor.Primary} />
-    </div>
+      <DropDown
+        selectedText={optionList[0].name}
+        optionList={optionList}
+        handleSortBy={handleSortBy}
+      />
+    </Result.SortConatiner>
   );
 };
 
@@ -51,5 +55,20 @@ const ResultCount = ({ items }) => {
 };
 
 ResultComponent.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.object),
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  optionList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  handleSortBy: PropTypes.func.isRequired,
+};
+
+ResultFilter.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
+ResultSort.propTypes = {
+  optionList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  handleSortBy: PropTypes.func.isRequired,
+};
+
+ResultCount.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
