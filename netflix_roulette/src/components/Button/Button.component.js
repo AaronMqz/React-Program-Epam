@@ -1,37 +1,34 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Button } from "./Button.styled";
-import { ButtonType } from "../../utils/constants";
 
-const ButtonNormal = ({ theme, text, width }) => {
-  return (
-    <Button.Normal theme={theme} width={width}>
-      {text}
-    </Button.Normal>
-  );
+const typedButton = {
+  Normal: (props) => <Button.Normal {...props} />,
+  Custom: (props) => <Button.Custom {...props} />,
+  Secondary: (props) => <Button.Secondary {...props} />,
 };
 
-const ButtonCustom = ({ theme, text, width }) => {
-  return (
-    <Button.Custom theme={theme} width={width}>
-      {text}
-    </Button.Custom>
-  );
-};
+export const ButtonComponent = ({ type, text, width, onClick }) => {
+  const Wrapper = typedButton[type];
 
-export const ButtonComponent = (props) => {
   return (
     <>
-      {props.type === ButtonType.Normal
-        ? ButtonNormal(props)
-        : ButtonCustom(props)}
+      {
+        <Wrapper width={width} onClick={onClick}>
+          {text}
+        </Wrapper>
+      }
     </>
   );
 };
 
+ButtonComponent.defaultProps = {
+  width: "120px",
+};
+
 ButtonComponent.propTypes = {
-  type: PropTypes.string,
-  theme: PropTypes.string,
+  type: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
   width: PropTypes.string,
+  onClick: PropTypes.func.isRequired,
 };

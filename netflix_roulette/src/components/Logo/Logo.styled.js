@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import { ThemeColor } from "../../utils/constants";
 
 const Normal = styled.label`
   font-size: 20px;
-  color: #f65261;
+  color: ${ThemeColor.Primary};
   font-weight: normal;
 `;
 

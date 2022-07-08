@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ThemeColor } from "../../utils/constants";
 
 const Normal = styled.div`
   border-radius: 2px;
@@ -6,24 +7,27 @@ const Normal = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: ${(props) => props.theme};
+  background: ${ThemeColor.Primary};
   color: white;
   font-size: 16px;
-  padding: 5px;
+  padding: 10px;
   width: ${(props) => props.width};
   margin-left: 10px;
 `;
 
 const Custom = styled(Normal)`
   background: rgba(255, 255, 255, 0.2);
-  color: #f65261;
+  color: ${ThemeColor.Primary};
 `;
 
-Normal.defaultProps = {
-  width: "150px",
-};
+const Secondary = styled(Normal)`
+  background: ${ThemeColor.Secondary};
+  border: solid 1px ${ThemeColor.Primary};
+  color: ${ThemeColor.Primary};
+`;
 
 export const Button = {
   Normal,
   Custom,
+  Secondary,
 };
