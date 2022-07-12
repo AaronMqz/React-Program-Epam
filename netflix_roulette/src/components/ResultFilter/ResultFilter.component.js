@@ -1,55 +1,75 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { Result } from "./ResultFilter.styled";
-import { ThemeColor } from "../../utils/constants";
-import { Utils } from "../../utils/utils";
+import { DropDownComponent as DropDown } from "../DropDown/DropDown.component";
+import {
+  useMovieContext,
+  useMovieContextDispatch,
+} from "../../utils/context/context";
 
-export const ResultComponent = ({ items }) => {
+export const ResultComponent = React.memo(() => {
   return (
     <Result.Container>
       <Result.Filter>
-        <ResultFilter items={items} />
-        <ResultSort></ResultSort>
+        <ResultFilter />
+        <ResultSort />
       </Result.Filter>
       <Result.Count>
-        <ResultCount items={items} />
+        <ResultCount />
       </Result.Count>
     </Result.Container>
   );
-};
+});
 
-const ResultFilter = ({ items }) => {
+const ResultFilter = () => {
+  const { filter } = useMovieContext();
+  const { setFilterBy } = useMovieContextDispatch();
+
   return (
-    <div>
-      <Result.LabelFilter active={true}>ALL</Result.LabelFilter>
-      {Utils.getMoviesGenres(items).map((item, index) => {
-        return <Result.LabelFilter key={index}>{item}</Result.LabelFilter>;
+    <Result.FilterContent>
+      <Result.LabelFilter
+        active={filter.by === "ALL" ? true : false}
+        onClick={(e) => setFilterBy(e.target.textContent)}
+      >
+        {"ALL"}
+      </Result.LabelFilter>
+      {filter.options.map((item, index) => {
+        return (
+          <Result.LabelFilter
+            key={index}
+            id={item}
+            active={filter.by === item ? true : false}
+            onClick={(e) => setFilterBy(e.target.id)}
+          >
+            {item.toUpperCase()}
+          </Result.LabelFilter>
+        );
       })}
-    </div>
+    </Result.FilterContent>
   );
 };
 
 const ResultSort = () => {
+  const { sort } = useMovieContext();
+  const { setSortBy } = useMovieContextDispatch();
+
   return (
-    <div>
+    <Result.SortConatiner>
       <Result.LabelSort>SORT BY</Result.LabelSort>
-      <span style={{ marginRight: 10 }}>RELEASE DATE</span>
-      <FontAwesomeIcon icon={faCaretDown} color={ThemeColor.Primary} />
-    </div>
+      <DropDown
+        selectedText={sort.name}
+        optionList={sort.options}
+        handleSortBy={setSortBy}
+      />
+    </Result.SortConatiner>
   );
 };
 
-const ResultCount = ({ items }) => {
+const ResultCount = () => {
+  const { movies } = useMovieContext();
   return (
     <>
-      <Result.LabelCount>{items.length}</Result.LabelCount>
+      <Result.LabelCount>{movies.length}</Result.LabelCount>
       <span>movies found</span>
     </>
   );
-};
-
-ResultComponent.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.object),
 };

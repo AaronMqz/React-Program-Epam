@@ -6,7 +6,6 @@ const Container = styled.header`
   flex: 1;
   flex-direction: column;
   justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.8);
   height: 300px;
   padding: 15px 45px;
   top: 0;
@@ -17,11 +16,11 @@ const Container = styled.header`
 
 const BackgroundImage = styled.div`
   background-image: url(${movies});
-  filter: blur(2px);
+  filter: blur(2px) brightness(0.4);
   position: absolute;
   height: 100%;
   width: 100%;
-  z-index: -1;
+  z-index: 0;
   left: 0;
   top: 0;
 `;
@@ -30,6 +29,7 @@ const Top = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
+  z-index: 1;
 `;
 
 const Content = styled.div`
@@ -39,6 +39,7 @@ const Content = styled.div`
   align-self: center;
   flex: 1;
   justify-content: center;
+  z-index: 1;
 `;
 
 const FormSearch = styled.div`

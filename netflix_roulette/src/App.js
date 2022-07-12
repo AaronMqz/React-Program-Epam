@@ -1,10 +1,13 @@
 import React from "react";
 import { HomePage } from "./pages/Home";
+import { MovieProvider } from "./utils/context/provider";
 
 function App() {
   return (
     <div className="App">
-      <HomePage />
+      <MovieProvider>
+        <HomePage />
+      </MovieProvider>
     </div>
   );
 }
