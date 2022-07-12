@@ -11,21 +11,10 @@ export const DropDownComponent = ({
   handleSortBy,
 }) => {
   const [showList, setShowList] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(selectedText);
-
   const ref = useRef();
 
   const handleShowList = () => {
     setShowList(!showList);
-  };
-
-  const handleSelectedItem = (e) => {
-    const itemSelected = optionList.filter((i) => {
-      return i.id === e.target.id;
-    })[0];
-    setSelectedItem(itemSelected.name);
-    setShowList(!showList);
-    handleSortBy(itemSelected.id);
   };
 
   useEffect(() => {
@@ -45,7 +34,7 @@ export const DropDownComponent = ({
   return (
     <DropDown.Container ref={ref} onClick={() => handleShowList()}>
       <DropDown.SelectedText>
-        {selectedItem}
+        {selectedText}
         <FontAwesomeIcon
           icon={showList ? faCaretUp : faCaretDown}
           color={ThemeColor.Primary}
@@ -59,7 +48,7 @@ export const DropDownComponent = ({
               <DropDown.Item
                 key={item.id}
                 id={item.id}
-                onClick={(e) => handleSelectedItem(e)}
+                onClick={(e) => handleSortBy(e.target.id)}
               >
                 {item.name}
               </DropDown.Item>

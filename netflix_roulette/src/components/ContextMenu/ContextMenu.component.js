@@ -1,20 +1,18 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { ContextMenu } from "./ContextMenu.styled";
+import { useMovieContextDispatch } from "../../utils/context/context";
 
-export const ContextMenuComponent = ({ handleClick }) => {
+export const ContextMenuComponent = () => {
+  const { setModalType } = useMovieContextDispatch();
+
+  const handleClick = (e) => {
+    setModalType(e.target.textContent.toLowerCase());
+  };
+
   return (
     <ContextMenu.Container>
-      <ContextMenu.Label onClick={() => handleClick("edit")}>
-        Edit
-      </ContextMenu.Label>
-      <ContextMenu.Label onClick={() => handleClick("delete")}>
-        Delete
-      </ContextMenu.Label>
+      <ContextMenu.Label onClick={handleClick}>Edit</ContextMenu.Label>
+      <ContextMenu.Label onClick={handleClick}>Delete</ContextMenu.Label>
     </ContextMenu.Container>
   );
-};
-
-ContextMenuComponent.propTypes = {
-  handleClick: PropTypes.func.isRequired,
 };

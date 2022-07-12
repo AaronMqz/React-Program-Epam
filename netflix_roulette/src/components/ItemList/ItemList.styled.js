@@ -5,7 +5,7 @@ const ListContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   padding: 0 45px;
-  justify-content: space-between;
+  justify-content: center;
   background: ${ThemeColor.Secondary};
 `;
 
@@ -16,6 +16,7 @@ const Container = styled.div`
   position: relative;
   cursor: pointer;
   transition: transform 500ms;
+  margin-right: 2%;
   &:hover {
     transform: scale(1.05);
   }
@@ -64,14 +65,13 @@ const Menu = styled.span`
   background: ${ThemeColor.Secondary};
   height: 30px;
   width: 30px;
-  display: none;
   justify-content: center;
   align-items: center;
   position: absolute;
   top: 20px;
   right: 15px;
   color: white;
-  ${(props) => (props.hover ? "display:flex" : "display:none")}
+  display: flex;
 `;
 
 export const Item = {

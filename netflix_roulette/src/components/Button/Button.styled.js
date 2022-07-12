@@ -26,8 +26,16 @@ const Secondary = styled(Normal)`
   color: ${ThemeColor.Primary};
 `;
 
+const Icon = styled(Normal)`
+  background: none;
+  color: ${ThemeColor.Primary};
+  font-size: 21px;
+  padding-top: 0px;
+`;
+
 export const Button = {
   Normal,
   Custom,
   Secondary,
+  Icon,
 };

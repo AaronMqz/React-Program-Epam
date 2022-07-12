@@ -3,7 +3,7 @@ import { ThemeColor } from "../../utils/constants";
 
 const Container = styled.div`
   margin-top: 10px;
-  padding: 15px 45px 0 45px;
+  padding: 0px 45px 0 45px;
   background: ${ThemeColor.Secondary};
   color: white;
 `;
@@ -11,13 +11,16 @@ const Container = styled.div`
 const Filter = styled.div`
   display: flex;
   justify-content: space-between;
+  padding-top: 15px;
+  flex-wrap: wrap;
   border-bottom: solid 3px ${ThemeColor.TagLine};
-  height: 37px;
 `;
 
 const FilterContent = styled.div`
   display: flex;
   height: 40px;
+  padding-top: 15px;
+  align-items: flex-end;
 `;
 
 const Count = styled.div`
@@ -26,18 +29,28 @@ const Count = styled.div`
 
 const LabelFilter = styled.label`
   margin-right: 15px;
+  bottom: -3px;
+  position: relative;
   padding-bottom: 15px;
+  cursor: pointer;
+  &:hover {
+    border-bottom: solid 3px ${ThemeColor.Primary};
+  }
   ${(props) =>
-    props.active ? `border-bottom: solid 3px ${ThemeColor.Primary}` : ""}
+    props.active
+      ? `border-bottom: solid 3px ${ThemeColor.Primary}`
+      : `border-bottom: solid 3px ${ThemeColor.TagLine}`}
 `;
 
 const SortConatiner = styled.div`
-  padding-bottom: 15px;
   display: flex;
+  padding-top: 15px;
+  align-items: flex-end;
 `;
 
-const LabelSort = styled(LabelFilter)`
+const LabelSort = styled.label`
   color: lightgray;
+  padding-bottom: 15px;
 `;
 
 const LabelCount = styled.label`

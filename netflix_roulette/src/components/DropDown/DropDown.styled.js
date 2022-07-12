@@ -7,7 +7,13 @@ const Container = styled.div`
   justify-content: center;
   cursor: pointer;
   position: relative;
-  align-items: center;
+  align-items: flex-start;
+  padding-bottom: 15px;
+  &:hover {
+    border-bottom: solid 3px ${ThemeColor.Primary};
+    position: relative;
+    top: 3px;
+  }
 `;
 
 const SelectedText = styled.div`

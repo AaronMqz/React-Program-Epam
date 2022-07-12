@@ -1,74 +1,75 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Result } from "./ResultFilter.styled";
-import { Utils } from "../../utils/utils";
 import { DropDownComponent as DropDown } from "../DropDown/DropDown.component";
+import {
+  useMovieContext,
+  useMovieContextDispatch,
+} from "../../utils/context/context";
 
-export const ResultComponent = ({ items, optionList, handleSortBy }) => {
+export const ResultComponent = React.memo(() => {
   return (
     <Result.Container>
       <Result.Filter>
-        <ResultFilter items={items} />
-        <ResultSort
-          optionList={optionList}
-          handleSortBy={handleSortBy}
-        ></ResultSort>
+        <ResultFilter />
+        <ResultSort />
       </Result.Filter>
       <Result.Count>
-        <ResultCount items={items} />
+        <ResultCount />
       </Result.Count>
     </Result.Container>
   );
-};
+});
 
-const ResultFilter = ({ items }) => {
+const ResultFilter = () => {
+  const { filter } = useMovieContext();
+  const { setFilterBy } = useMovieContextDispatch();
+
   return (
     <Result.FilterContent>
-      <Result.LabelFilter active={true}>ALL</Result.LabelFilter>
-      {Utils.getMoviesGenres(items).map((item, index) => {
-        return <Result.LabelFilter key={index}>{item}</Result.LabelFilter>;
+      <Result.LabelFilter
+        active={filter.by === "ALL" ? true : false}
+        onClick={(e) => setFilterBy(e.target.textContent)}
+      >
+        {"ALL"}
+      </Result.LabelFilter>
+      {filter.options.map((item, index) => {
+        return (
+          <Result.LabelFilter
+            key={index}
+            id={item}
+            active={filter.by === item ? true : false}
+            onClick={(e) => setFilterBy(e.target.id)}
+          >
+            {item.toUpperCase()}
+          </Result.LabelFilter>
+        );
       })}
     </Result.FilterContent>
   );
 };
 
-const ResultSort = ({ optionList, handleSortBy }) => {
+const ResultSort = () => {
+  const { sort } = useMovieContext();
+  const { setSortBy } = useMovieContextDispatch();
+
   return (
     <Result.SortConatiner>
       <Result.LabelSort>SORT BY</Result.LabelSort>
       <DropDown
-        selectedText={optionList[0].name}
-        optionList={optionList}
-        handleSortBy={handleSortBy}
+        selectedText={sort.name}
+        optionList={sort.options}
+        handleSortBy={setSortBy}
       />
     </Result.SortConatiner>
   );
 };
 
-const ResultCount = ({ items }) => {
+const ResultCount = () => {
+  const { movies } = useMovieContext();
   return (
     <>
-      <Result.LabelCount>{items.length}</Result.LabelCount>
+      <Result.LabelCount>{movies.length}</Result.LabelCount>
       <span>movies found</span>
     </>
   );
-};
-
-ResultComponent.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.object).isRequired,
-  optionList: PropTypes.arrayOf(PropTypes.object).isRequired,
-  handleSortBy: PropTypes.func.isRequired,
-};
-
-ResultFilter.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.object).isRequired,
-};
-
-ResultSort.propTypes = {
-  optionList: PropTypes.arrayOf(PropTypes.object).isRequired,
-  handleSortBy: PropTypes.func.isRequired,
-};
-
-ResultCount.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.object).isRequired,
 };

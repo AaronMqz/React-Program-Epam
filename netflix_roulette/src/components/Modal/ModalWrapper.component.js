@@ -8,6 +8,7 @@ export const ModalWrapper = ({ type }) => {
     add: (props) => <Form.Add {...props} />,
     edit: (props) => <Form.Edit {...props} />,
     delete: (props) => <Delete {...props} />,
+    close: () => <></>,
   };
   const Wrapper = modalType[type];
   return <Wrapper />;
@@ -15,4 +16,8 @@ export const ModalWrapper = ({ type }) => {
 
 ModalWrapper.propTypes = {
   type: PropTypes.string.isRequired,
+};
+
+ModalWrapper.defaultProps = {
+  type: "close",
 };

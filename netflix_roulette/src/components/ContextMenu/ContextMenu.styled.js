@@ -11,11 +11,12 @@ const Container = styled.div`
   right: 0;
 `;
 
-const Label = styled.div`
+const Label = styled.label`
   padding: 10px 40px;
   &:hover {
     background: ${ThemeColor.Primary};
   }
+  cursor: pointer;
 `;
 
 export const ContextMenu = {

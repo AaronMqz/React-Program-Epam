@@ -21,6 +21,7 @@ const Input = styled.input`
 const InputWrapper = styled.span`
   display: flex;
   position: relative;
+  width: 100%;
 `;
 
 const Icon = styled.span`
@@ -29,6 +30,7 @@ const Icon = styled.span`
   right: 10px;
   height: 100%;
   align-items: center;
+  cursor: pointer;
 `;
 
 export { Input, Icon, InputWrapper };

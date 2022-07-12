@@ -6,9 +6,10 @@ const typedButton = {
   Normal: (props) => <Button.Normal {...props} />,
   Custom: (props) => <Button.Custom {...props} />,
   Secondary: (props) => <Button.Secondary {...props} />,
+  Icon: (props) => <Button.Icon {...props} />,
 };
 
-export const ButtonComponent = ({ type, text, width, onClick }) => {
+export const ButtonComponent = ({ type, text, width, onClick, icon }) => {
   const Wrapper = typedButton[type];
 
   return (
@@ -16,6 +17,7 @@ export const ButtonComponent = ({ type, text, width, onClick }) => {
       {
         <Wrapper width={width} onClick={onClick}>
           {text}
+          {icon}
         </Wrapper>
       }
     </>
@@ -28,7 +30,8 @@ ButtonComponent.defaultProps = {
 
 ButtonComponent.propTypes = {
   type: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
+  text: PropTypes.string,
   width: PropTypes.string,
   onClick: PropTypes.func.isRequired,
+  icon: PropTypes.object,
 };
